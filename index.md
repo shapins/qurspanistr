@@ -286,8 +286,7 @@
             projectId: "quranspanishstream",
             storageBucket: "quranspanishstream.firebasestorage.app",
             messagingSenderId: "228678837949",
-            appId: "1:228678837949:web:6205f74be18abc507eb9d4",
-            measurementId: "G-2EYQKPKGB3"
+            appId: "1:228678837949:web:6205f74be18abc507eb9d4"
 
         };
         const appId = typeof __app_id !== 'undefined' ? __app_id : 'audio-player-default-app';
