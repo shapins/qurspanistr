@@ -1,9 +1,9 @@
 
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Audio Stream Player</title>
+    <title>Reproductor de Audio</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <style>
@@ -138,7 +138,7 @@
                <span></span><span></span><span></span><span></span>
             </div>
             <div>
-                <p id="songTitle" class="text-lg font-semibold truncate">Seleccione una Sura</p>
+                <p id="songTitle" class="text-lg font-semibold truncate">Ninguna Canción Seleccionada</p>
                 <p id="songArtist" class="text-sm text-gray-400 truncate">---</p>
             </div>
         </div>
@@ -181,9 +181,9 @@
 
     <!-- Tabs for Song Lists -->
     <div class="flex border-b border-gray-700 sticky top-0 bg-gray-900 z-10">
-        <button data-tab="library" class="tab-button flex-1 py-3 text-center text-gray-400 hover:text-white tab-active">Suras del Corán</button>
-        <button data-tab="favorites" class="tab-button flex-1 py-3 text-center text-gray-400 hover:text-white">Mis Favoritas</button>
-        <button data-tab="playlists" class="tab-button flex-1 py-3 text-center text-gray-400 hover:text-white">Mis Listas</button>
+        <button data-tab="library" class="tab-button flex-1 py-3 text-center text-gray-400 hover:text-white tab-active">Biblioteca</button>
+        <button data-tab="favorites" class="tab-button flex-1 py-3 text-center text-gray-400 hover:text-white">Favoritos</button>
+        <button data-tab="playlists" class="tab-button flex-1 py-3 text-center text-gray-400 hover:text-white">Listas</button>
     </div>
 
     <!-- Song List Area -->
@@ -194,48 +194,51 @@
         </div>
         <!-- Favorites View -->
         <div id="favoritesView" class="tab-content hidden">
-            <p class="text-gray-500 text-center p-4 hidden" id="noFavoritesMessage">No tienes Suras favoritas.  Añade algunas!</p>
-            <!-- Favorite songs will be injected here -->
+            <p class="text-gray-500 text-center p-4 hidden" id="noFavoritesMessage">Aún no hay Surahs favoritos.</p>
+            <div id="favoriteSongsContainer">
+                <!-- Favorite songs will be injected here -->
+            </div>
         </div>
         <!-- Playlists View -->
         <div id="playlistsView" class="tab-content hidden">
             <div class="p-2">
                 <button id="createPlaylistBtn" class="w-full bg-[#84cc16] hover:bg-[#65a30d] text-white font-semibold py-2 px-4 rounded-lg mb-2">
-                    <i class="fas fa-plus-circle mr-2"></i>Crea una Lista de Reproducción
+                    <i class="fas fa-plus-circle mr-2"></i>Crear Nueva Lista
                 </button>
                  <div id="myPlaylistsContainer">
                     <!-- Playlists will be listed here -->
                  </div>
-                 <p class="text-gray-500 text-center p-4 hidden" id="noPlaylistsMessage">No tienes Listas de Reproducción. Crea una!</p>
+                 <p class="text-gray-500 text-center p-4 hidden" id="noPlaylistsMessage">No hay listas de reproducción. ¡Crea una primero!</p>
             </div>
         </div>
         <!-- Single Playlist Songs View -->
         <div id="singlePlaylistSongsView" class="tab-content hidden">
              <div class="flex items-center justify-between p-2 border-b border-gray-700">
                 <button id="backToPlaylistsBtn" class="text-[#84cc16] hover:text-[#65a30d]">
-                    <i class="fas fa-arrow-left mr-2"></i> Volver a Listas de Reproducción
+                    <i class="fas fa-arrow-left mr-2"></i> Volver a Listas
                 </button>
-                <h3 id="currentPlaylistNameHeader" class="text-lg font-semibold">Listas de Reproducción</h3>
+                <h3 id="currentPlaylistNameHeader" class="text-lg font-semibold">Surahs de la Lista</h3>
             </div>
             <div id="songsInPlaylistContainer">
                 <!-- Songs in the selected playlist will be injected here -->
             </div>
-             <p class="text-gray-500 text-center p-4 hidden" id="noSongsInPlaylistMessage">Esta Lista de Reproducción está vacía.</p>
+             <p class="text-gray-500 text-center p-4 hidden" id="noSongsInPlaylistMessage">Esta lista de reproducción está vacía.</p>
         </div>
     </div>
 
     <!-- Sleep Timer Modal -->
     <div id="sleepTimerModal" class="modal fixed inset-0 bg-black bg-opacity-75 items-center justify-center z-50 p-4">
         <div class="bg-gray-800 p-6 rounded-lg shadow-xl w-full max-w-sm">
-            <h3 id="sleepTimerTitle" class="text-xl font-semibold mb-4 text-center">Temporizador de apagado</h3>
+            <h3 id="sleepTimerTitle" class="text-xl font-semibold mb-4 text-center">Temporizador</h3>
             <div id="timerOptions" class="grid grid-cols-2 gap-3">
                 <button data-minutes="15" class="bg-gray-700 hover:bg-[#84cc16] hover:text-gray-900 font-semibold py-3 px-4 rounded-lg">15 Minutos</button>
                 <button data-minutes="30" class="bg-gray-700 hover:bg-[#84cc16] hover:text-gray-900 font-semibold py-3 px-4 rounded-lg">30 Minutos</button>
                 <button data-minutes="60" class="bg-gray-700 hover:bg-[#84cc16] hover:text-gray-900 font-semibold py-3 px-4 rounded-lg">60 Minutos</button>
-                <button data-minutes="0" class="bg-gray-700 hover:bg-pink-500 font-semibold py-3 px-4 rounded-lg">Cancelar</button>
+                <button data-minutes="120" class="bg-gray-700 hover:bg-[#84cc16] hover:text-gray-900 font-semibold py-3 px-4 rounded-lg">120 Minutos</button>
+                <button data-minutes="0" class="col-span-2 bg-gray-700 hover:bg-pink-500 font-semibold py-3 px-4 rounded-lg">Desactivar</button>
             </div>
             <div class="flex justify-center mt-4">
-                <button id="cancelSleepTimerBtn" class="bg-gray-600 hover:bg-gray-700 text-white font-semibold py-2 px-6 rounded-lg">Cerrar</button>
+                <button id="cancelSleepTimerBtn" class="bg-gray-600 hover:bg-gray-700 text-white font-semibold py-2 px-6 rounded-lg">Cancelar</button>
             </div>
         </div>
     </div>
@@ -244,8 +247,8 @@
     <!-- Modal for Creating Playlist -->
     <div id="createPlaylistModal" class="modal fixed inset-0 bg-black bg-opacity-75 items-center justify-center z-50 p-4">
         <div class="bg-gray-800 p-6 rounded-lg shadow-xl w-full max-w-md">
-            <h3 class="text-xl font-semibold mb-4">Crea una Lista de Reproducción</h3>
-            <input type="text" id="newPlaylistName" placeholder="Playlist Name" class="w-full p-2 rounded bg-gray-700 border border-gray-600 focus:border-[#84cc16] outline-none mb-4">
+            <h3 class="text-xl font-semibold mb-4">Crear Nueva Lista</h3>
+            <input type="text" id="newPlaylistName" placeholder="Nombre de la Lista" class="w-full p-2 rounded bg-gray-700 border border-gray-600 focus:border-[#84cc16] outline-none mb-4">
             <div class="flex justify-end space-x-2">
                 <button id="cancelCreatePlaylistBtn" class="bg-gray-600 hover:bg-gray-700 text-white font-semibold py-2 px-4 rounded-lg">Cancelar</button>
                 <button id="savePlaylistBtn" class="bg-[#84cc16] hover:bg-[#65a30d] text-white font-semibold py-2 px-4 rounded-lg">Crear</button>
@@ -256,33 +259,46 @@
     <!-- Modal for Adding to Playlist -->
     <div id="addToPlaylistModal" class="modal fixed inset-0 bg-black bg-opacity-75 items-center justify-center z-50 p-4">
         <div class="bg-gray-800 p-6 rounded-lg shadow-xl w-full max-w-md">
-            <h3 class="text-xl font-semibold mb-4">Add to Playlist</h3>
+            <h3 class="text-xl font-semibold mb-4">Añadir a Lista</h3>
             <input type="hidden" id="songIdToAddToPlaylist">
             <div id="playlistSelectionContainer" class="max-h-60 overflow-y-auto custom-scrollbar mb-4 border border-gray-700 rounded-md p-2">
                 <!-- Available playlists for selection -->
             </div>
-            <p id="noPlaylistsForAddingMessage" class="text-gray-400 mb-4 hidden">No hay Listas de Reproducción. Crea una!</p>
+            <p id="noPlaylistsForAddingMessage" class="text-gray-400 mb-4 hidden">No hay listas disponibles. ¡Crea una primero!</p>
             <div class="flex justify-end space-x-2">
                 <button id="cancelAddToPlaylistBtn" class="bg-gray-600 hover:bg-gray-700 text-white font-semibold py-2 px-4 rounded-lg">Cancelar</button>
             </div>
         </div>
     </div>
-
-
-<!-- Custom Confirmation Modal Added last -->
-    <div id="confirmModal" class="modal fixed inset-0 bg-black bg-opacity-75 items-center justify-center z-50 p-4">
-        <div class="bg-gray-800 p-6 rounded-lg shadow-xl w-full max-w-sm">
-            <p id="confirmMessage" class="text-white text-lg mb-4 text-center">Are you sure?</p>
-            <div class="flex justify-around">
-                <button id="confirmCancelBtn" class="bg-gray-600 hover:bg-gray-700 text-white font-semibold py-2 px-6 rounded-lg">Cancel</button>
-                <button id="confirmOkBtn" class="bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-6 rounded-lg">Delete</button>
+    
+    <!-- Modal for Deleting Playlist -->
+    <div id="deletePlaylistModal" class="modal fixed inset-0 bg-black bg-opacity-75 items-center justify-center z-50 p-4">
+        <div class="relative bg-gray-800 rounded-2xl shadow-xl w-full max-w-md border border-gray-700">
+            <div class="p-8 text-center">
+                <div class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-red-900/50 mb-4">
+                    <svg class="h-6 w-6 text-red-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126z" />
+                    </svg>
+                </div>
+                <h3 class="text-xl font-bold text-white">Eliminar Lista</h3>
+                <p id="deleteModalText" class="mt-2 text-gray-400">
+                    <!-- Confirmation message will be set here by JS -->
+                </p>
+            </div>
+            <div class="flex justify-center items-center gap-4 bg-gray-800/50 p-4 rounded-b-2xl">
+                <button id="cancelDeletePlaylistBtn" class="flex-1 rounded-lg bg-gray-700 hover:bg-gray-600 px-4 py-3 text-white font-semibold transition-colors duration-200">
+                    Cancelar
+                </button>
+                <button id="confirmDeletePlaylistBtn" class="flex-1 rounded-lg bg-red-600 hover:bg-red-700 px-4 py-3 text-white font-semibold transition-colors duration-200">
+                    Eliminar
+                </button>
             </div>
         </div>
     </div>
 
-    
+
     <!-- Toast Notification -->
-    <div id="toastNotification" class="toast">Esto es una notificación!</div>
+    <div id="toastNotification" class="toast"></div>
 
 
     <script type="module">
@@ -301,6 +317,7 @@
             messagingSenderId: "228678837949",
             appId: "1:228678837949:web:6205f74be18abc507eb9d4",
             measurementId: "G-2EYQKPKGB3"
+
 
         };
         const appId = typeof __app_id !== 'undefined' ? __app_id : 'audio-player-default-app';
@@ -334,6 +351,7 @@
 
         const libraryView = document.getElementById('libraryView');
         const favoritesView = document.getElementById('favoritesView');
+        const favoriteSongsContainer = document.getElementById('favoriteSongsContainer');
         const playlistsView = document.getElementById('playlistsView');
         const singlePlaylistSongsView = document.getElementById('singlePlaylistSongsView');
         const songsInPlaylistContainer = document.getElementById('songsInPlaylistContainer');
@@ -358,6 +376,11 @@
         const cancelAddToPlaylistBtn = document.getElementById('cancelAddToPlaylistBtn');
         const noPlaylistsForAddingMessage = document.getElementById('noPlaylistsForAddingMessage');
         
+        const deletePlaylistModal = document.getElementById('deletePlaylistModal');
+        const deleteModalText = document.getElementById('deleteModalText');
+        const confirmDeletePlaylistBtn = document.getElementById('confirmDeletePlaylistBtn');
+        const cancelDeletePlaylistBtn = document.getElementById('cancelDeletePlaylistBtn');
+
         const toastNotification = document.getElementById('toastNotification');
         
         // Sleep Timer Elements
@@ -393,6 +416,7 @@
         let lastPlaybackState = null;
         let sleepTimerId = null;
         let activeTimerMinutes = 0;
+        let playlistIdToDelete = null;
 
         // --- Toast Notification ---
         function showToast(message, duration) {
@@ -436,7 +460,7 @@
                 }
             } catch (error) {
                 console.error("Authentication error:", error);
-                showToast("Error de conexión. Los datos no serán guardados.", 5000);
+                showToast("Error al conectar con los servicios. Es posible que los datos no se guarden.", 5000);
             }
         }
 
@@ -453,13 +477,13 @@
             }
             
             if (activeTab === 'favorites') {
-                songTitleDisplay.textContent = "No tines Suras en Favoritas.";
+                songTitleDisplay.textContent = "No hay Surahs en Favoritos";
             } else if (activeTab === 'playlists' && !currentOpenPlaylistId) {
-                songTitleDisplay.textContent = "No has añadido Suras a Listas de Reproducción";
+                songTitleDisplay.textContent = "No hay Surahs en la Lista";
             } else if (activeTab === 'playlists' && currentOpenPlaylistId) {
-                songTitleDisplay.textContent = "Esta Lista de Reproducción está vacía.";
+                songTitleDisplay.textContent = "Esta Lista está vacía";
             } else {
-                songTitleDisplay.textContent = "Selecciona una Sura";
+                songTitleDisplay.textContent = "Ningún Surah Seleccionado";
             }
             songArtistDisplay.textContent = "---";
         }
@@ -499,7 +523,7 @@
                         audioPlayer.currentTime = options.seekTime;
                     }
                     if (isPlaying) {
-                        audioPlayer.play().catch(function(e) { console.error("Error playing loaded song:", e); });
+                        audioPlayer.play().catch(function(e) { console.error("Error playing loaded Surah:", e); });
                     }
                     audioPlayer.oncanplaythrough = null;
                 };
@@ -516,7 +540,7 @@
 
         function playSong() {
             if (playbackTracklist.length === 0) {
-                 showToast("No song to play.", 3000);
+                 showToast("No hay canción para reproducir.", 3000);
                  return;
             }
             if (currentSongIndex === -1) {
@@ -582,7 +606,7 @@
             audioPlayer.loop = isLoop; 
             loopBtn.classList.toggle('text-[#84cc16]', isLoop);
             loopBtn.classList.toggle('text-gray-400', !isLoop);
-            showToast(isLoop ? "Audio Loop Activado" : "Audio Loop desactivado");
+            showToast(isLoop ? "Repetir pista actual activado" : "Repetir pista actual desactivado");
         });
 
         shuffleBtn.addEventListener('click', function() {
@@ -604,7 +628,7 @@
             
             updateSelectedSongUI();
             updateNowPlayingIndicator();
-            showToast(isShuffle ? "Reproducción aleatoria activada" : "Reproducción aleatoria desactivada");
+            showToast(isShuffle ? "Modo aleatorio activado" : "Modo aleatorio desactivado");
         });
         
 
@@ -649,7 +673,7 @@
         function renderSongList(container, tracklistToRender, isPlaylistContext, playlistIdForContext) {
             container.innerHTML = ''; 
             if (!tracklistToRender || tracklistToRender.length === 0) {
-                 if (container === libraryView) container.innerHTML = '<p class="text-gray-500 text-center p-4">No hay Audios Disponibles.</p>';
+                 if (container === libraryView) container.innerHTML = '<p class="text-gray-500 text-center p-4">La Biblioteca está vacía.</p>';
                 return;
             }
 
@@ -818,13 +842,13 @@
                 }
             }, function(error) {
                 console.error("Error loading user document:", error);
-                showToast("No se pudo bajar los datos.", 4000);
+                showToast("No se pudieron cargar los datos del usuario.", 4000);
             });
         }
 
         async function toggleFavorite(songId, iconElement) {
             if (!userId || !dbUserDocRef) {
-                showToast("No se pudo añadir a Favoritas. No hay conexión.", 3000); return;
+                showToast("No se pudo guardar el favorito. No hay conexión.", 3000); return;
             }
             
             iconElement.classList.toggle('text-pink-500');
@@ -834,18 +858,18 @@
             
             try {
                 await setDoc(dbUserDocRef, { favoriteSongIds: operation }, { merge: true });
-                showToast(isCurrentlyFavorite ? "Eliminada de Favoritas" : "Añadida a Favoritas");
+                showToast(isCurrentlyFavorite ? "Eliminado de Favoritos" : "Añadido a Favoritos");
             } catch (error) {
                 iconElement.classList.toggle('text-pink-500');
                 console.error("Error updating favorites:", error);
-                showToast("No se pudo actualizar tus Favoritas.", 3000);
+                showToast("Error al guardar el favorito.", 3000);
             }
         }
 
         function renderFavorites() {
             const favSongsData = songs.filter(function(song) { return favoriteSongIds.includes(song.id); });
             noFavoritesMessage.classList.toggle('hidden', favSongsData.length > 0);
-            renderSongList(favoritesView, favSongsData);
+            renderSongList(favoriteSongsContainer, favSongsData);
 
             const activeTabButton = document.querySelector('.tab-button.tab-active');
             if (activeTabButton && activeTabButton.dataset.tab === 'favorites') {
@@ -897,9 +921,9 @@
                 }
             });
             if (activeTimerMinutes > 0) {
-                sleepTimerTitle.textContent = "Timer set for " + activeTimerMinutes + " min";
+                sleepTimerTitle.textContent = "Temporizador para " + activeTimerMinutes + " min";
             } else {
-                sleepTimerTitle.textContent = "Sleep Timer";
+                sleepTimerTitle.textContent = "Temporizador";
             }
         }
 
@@ -910,7 +934,7 @@
             if (minutes > 0) {
                 sleepTimerId = setTimeout(function() {
                     pauseSong();
-                    showToast("Sleep timer finished.");
+                    showToast("Temporizador finalizado.");
                     activeTimerMinutes = 0;
                     sleepTimerBtn.classList.remove('text-[#84cc16]');
                     sleepTimerBtn.classList.add('text-gray-400');
@@ -919,11 +943,11 @@
                 
                 sleepTimerBtn.classList.add('text-[#84cc16]');
                 sleepTimerBtn.classList.remove('text-gray-400');
-                showToast("Sleep timer set for " + minutes + " minutes.");
+                showToast("Temporizador configurado para " + minutes + " minutos.");
             } else {
                 sleepTimerBtn.classList.remove('text-[#84cc16]');
                 sleepTimerBtn.classList.add('text-gray-400');
-                showToast("Sleep timer turned off.");
+                showToast("Temporizador desactivado.");
             }
             updateSleepTimerUI();
             sleepTimerModal.classList.remove('active');
@@ -956,14 +980,14 @@
 
         savePlaylistBtn.addEventListener('click', async function() {
             if (!userId || !dbPlaylistsCollectionRef) {
-                 showToast("No se pudo guardar tu Lista. No hay conexión.", 3000); return;
+                 showToast("No se pudo guardar la lista. No hay conexión.", 3000); return;
             }
             const playlistName = newPlaylistNameInput.value.trim();
             if (!playlistName) {
-                showToast("El nombre de la Lista no se puede dejar en blanco.", 3000); return;
+                showToast("El nombre de la lista no puede estar vacío.", 3000); return;
             }
             if (playlists.find(function(p) { return p.name.toLowerCase() === playlistName.toLowerCase(); })) {
-                showToast("Ya existe una Lista con ese nombre.", 3000); return;
+                showToast("Ya existe una lista con este nombre.", 3000); return;
             }
             try {
                 await addDoc(dbPlaylistsCollectionRef, {
@@ -972,10 +996,10 @@
                     createdAt: new Date()
                 });
                 createPlaylistModal.classList.remove('active');
-                showToast(`Playlist "${playlistName}" created.`);
+                showToast(`Lista "${playlistName}" creada.`);
             } catch (error) {
                 console.error("Error creating playlist:", error);
-                showToast("Hubo un error al crear la lista de reproducción.", 3000);
+                showToast("Error al crear la lista.", 3000);
             }
         });
 
@@ -1017,19 +1041,25 @@
                     const div = document.createElement('div');
                     div.className = 'p-3 bg-gray-800 rounded-lg mb-2 flex justify-between items-center cursor-pointer hover:bg-gray-700 transition-colors duration-150';
                     div.innerHTML = `
-                        <span class="font-semibold truncate flex-grow">${playlist.name} (${(playlist.songIds && playlist.songIds.length) || 0} songs)</span>
+                        <div class="font-semibold truncate flex-grow" data-action="open-playlist">
+                           ${playlist.name} (${(playlist.songIds && playlist.songIds.length) || 0} canciones)
+                        </div>
                         <div class="flex-shrink-0">
-                            <button data-playlist-id="${playlist.id}" data-action="delete-playlist" class="text-red-500 hover:text-red-400 p-2 rounded-full focus:outline-none"><i class="fas fa-trash-alt"></i></button>
+                            <button data-playlist-id="${playlist.id}" data-playlist-name="${playlist.name}" data-action="delete-playlist" class="text-red-500 hover:text-red-400 p-2 rounded-full focus:outline-none"><i class="fas fa-trash-alt"></i></button>
                         </div>
                     `;
+
                     div.addEventListener('click', function(e) {
-                        const buttonTarget = e.target.closest('button[data-action="delete-playlist"]');
-                        if (buttonTarget) {
-                            const playlistId = buttonTarget.dataset.playlistId;
-                            if (confirm(`Está seguro que quiere borrar esta lista de reproducción?  "${playlist.name}"? Esto no tiene vuelta atrás.`)) {
-                                deletePlaylist(playlistId);
-                            }
-                        } else {
+                        const target = e.target.closest('[data-action]');
+                        if (!target) return;
+                        
+                        const action = target.dataset.action;
+                        
+                        if (action === 'delete-playlist') {
+                            const playlistId = target.dataset.playlistId;
+                            const playlistName = target.dataset.playlistName;
+                            openDeleteConfirmationModal(playlistId, playlistName);
+                        } else if (action === 'open-playlist') {
                             showSongsForPlaylist(playlist.id);
                         }
                     });
@@ -1042,22 +1072,33 @@
                  updatePlayerHeader();
             }
         }
+        
+        function openDeleteConfirmationModal(playlistId, playlistName) {
+            playlistIdToDelete = playlistId;
+            deleteModalText.textContent = `¿Estás seguro de que quieres eliminar la lista "${playlistName}"? Esta acción no se puede deshacer.`;
+            deletePlaylistModal.classList.add('active');
+        }
+
+        function closeDeleteConfirmationModal() {
+            deletePlaylistModal.classList.remove('active');
+            playlistIdToDelete = null;
+        }
 
         async function deletePlaylist(playlistId) {
              if (!userId || !dbPlaylistsCollectionRef) {
-                 showToast("Cannot delete playlist. Not connected.", 3000); return;
+                 showToast("No se pudo eliminar la lista. No hay conexión.", 3000); return;
             }
             try {
                 await deleteDoc(doc(dbPlaylistsCollectionRef, playlistId));
-                showToast("Playlist deleted.");
+                showToast("Lista eliminada.");
             } catch (error) {
                 console.error("Error deleting playlist:", error);
-                showToast("Error deleting playlist.", 3000);
+                showToast("Error al eliminar la lista.", 3000);
             }
         }
 
         function openAddToPlaylistModal(songId) {
-            if (!userId || !dbPlaylistsCollectionRef) { showToast("Connect to save changes.", 3000); return; }
+            if (!userId || !dbPlaylistsCollectionRef) { showToast("Conéctate para guardar los cambios.", 3000); return; }
             songIdToAddToPlaylistInput.value = songId;
             playlistSelectionContainer.innerHTML = '';
             noPlaylistsForAddingMessage.classList.toggle('hidden', playlists.length > 0);
@@ -1071,7 +1112,7 @@
                     pDiv.innerHTML = `
                         <span class="truncate">${playlist.name}</span>
                         <button data-playlist-id="${playlist.id}" ${isSongInPlaylist ? 'disabled class="text-gray-500 cursor-not-allowed p-1 rounded"' : 'class="text-[#84cc16] hover:text-[#65a30d] p-1 rounded"'}">
-                            ${isSongInPlaylist ? '<i class="fas fa-check-circle mr-1"></i> Added' : '<i class="fas fa-plus-circle mr-1"></i> Add'}
+                            ${isSongInPlaylist ? '<i class="fas fa-check-circle mr-1"></i> Añadido' : '<i class="fas fa-plus-circle mr-1"></i> Añadir'}
                         </button>
                     `;
                     if (!isSongInPlaylist) {
@@ -1089,31 +1130,31 @@
 
         async function addSongToPlaylist(songId, playlistId) {
             if (!userId || !dbPlaylistsCollectionRef) {
-                 showToast("Cannot add to playlist. Not connected.", 3000); return;
+                 showToast("No se pudo añadir a la lista. No hay conexión.", 3000); return;
             }
             const playlistRef = doc(dbPlaylistsCollectionRef, playlistId);
             try {
                 await updateDoc(playlistRef, { songIds: arrayUnion(songId) });
                 const playlist = playlists.find(function(p) { return p.id === playlistId; });
-                showToast(`Added to playlist "${playlist ? playlist.name : 'playlist'}".`);
+                showToast(`Añadido a la lista "${playlist ? playlist.name : 'lista'}".`);
             } catch (error) {
                 console.error("Error adding song to playlist:", error);
-                showToast("No se pudo añadir a la lista de reproducción.", 3000);
+                showToast("Error al añadir Surah a la lista.", 3000);
             }
         }
 
         async function removeSongFromPlaylist(songId, playlistId) {
              if (!userId || !dbPlaylistsCollectionRef) {
-                 showToast("Cannot remove from playlist. Not connected.", 3000); return;
+                 showToast("No se pudo eliminar de la lista. No hay conexión.", 3000); return;
             }
             const playlistRef = doc(dbPlaylistsCollectionRef, playlistId);
             try {
                 await updateDoc(playlistRef, { songIds: arrayRemove(songId) });
                 const playlist = playlists.find(function(p) { return p.id === playlistId; });
-                showToast(`Removed from playlist "${playlist ? playlist.name : 'playlist'}".`);
+                showToast(`Eliminado de la lista "${playlist ? playlist.name : 'lista'}".`);
             } catch (error) {
                 console.error("Error removing song from playlist:", error);
-                showToast("No se pudo eliminar de la lista de reproducción.", 3000);
+                showToast("Error al eliminar Surah de la lista.", 3000);
             }
         }
 
@@ -1166,8 +1207,19 @@
         // --- Initial Setup ---
         document.addEventListener('DOMContentLoaded', function() {
             initAuth(); 
+            
+            confirmDeletePlaylistBtn.addEventListener('click', () => {
+                if (playlistIdToDelete) {
+                    deletePlaylist(playlistIdToDelete);
+                }
+                closeDeleteConfirmationModal();
+            });
+
+            cancelDeletePlaylistBtn.addEventListener('click', closeDeleteConfirmationModal);
         });
 
     </script>
 </body>
 </html>
+
+
