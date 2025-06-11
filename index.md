@@ -1,3 +1,5 @@
+
+
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -180,7 +182,7 @@
 
     <!-- Tabs for Song Lists -->
     <div class="flex border-b border-gray-700 sticky top-0 bg-gray-900 z-10">
-        <button data-tab="library" class="tab-button flex-1 py-3 text-center text-gray-400 hover:text-white tab-active">Biblioteca</button>
+        <button data-tab="library" class="tab-button flex-1 py-3 text-center text-gray-400 hover:text-white tab-active">Suras</button>
         <button data-tab="favorites" class="tab-button flex-1 py-3 text-center text-gray-400 hover:text-white">Favoritos</button>
         <button data-tab="playlists" class="tab-button flex-1 py-3 text-center text-gray-400 hover:text-white">Listas</button>
     </div>
@@ -390,8 +392,8 @@
 
 
         let songs = [
-            { id: 's1', title: 'Surah 1: Al-Fâtihah (La Sura que abre el Libro)', artist: 'Mishary Al-Afasy y Noé Corrales', url: 'https://archive.org/download/coran_001/001%20LA%20SURA%20QUE%20ABRE%20EL%20LIBRO.mp3'},
-            { id: 's2', title: 'Surah 2: Al-Baqarah (Sura de la Vaca)', artist: 'Mishary Al-Afasy y Noé Corrales', url: 'https://archive.org/download/coran_001/002%20SURA%20DE%20LA%20VACA.mp3'},
+            { id: 's1', title: 'Surah 1: Al-Fâtihah (La Sura que abre el Libro)', artist: 'Mishary Al-Afasy y Noé Corrales', url: 'https://archive.org/download/coran_001/001.%20LA%20SURA%20QUE%20ABRE%20EL%20LIBRO.mp3'},
+            { id: 's2', title: 'Surah 2: Al-Baqarah (Sura de la Vaca)', artist: 'Mishary Al-Afasy y Noé Corrales', url: 'https://archive.org/download/coran_001/002.%20SURA%20DE%20LA%20VACA.mp3'},
             { id: 's3', title: 'Surah 3: Âl-Imrân (La Familia de Imrân)', artist: 'Mishary Al-Afasy y Noé Corrales', url: 'https://archive.org/download/coran_001/003.%20SURA%20DE%20LA%20FAMILIA%20DE%20IMRAN.mp3'},
             { id: 's4', title: 'Surah 4: An-Nisâ' (Las Mujeres)', artist: 'Mishary Al-Afasy y Noé Corrales', url: 'https://archive.org/download/coran_001/004.%20SURA%20DE%20LAS%20MUJERES.mp3'},
             { id: 's5', title: 'Surah 5: Al-Mâ'idah (La Mesa Servida)', artist: 'Mishary Al-Afasy y Noé Corrales', url: 'https://archive.org/download/coran_001/005.%20SURA%20DE%20LA%20MESA%20SERVIDA.mp3'},
@@ -776,7 +778,7 @@
         function renderSongList(container, tracklistToRender, isPlaylistContext, playlistIdForContext) {
             container.innerHTML = ''; 
             if (!tracklistToRender || tracklistToRender.length === 0) {
-                 if (container === libraryView) container.innerHTML = '<p class="text-gray-500 text-center p-4">La Biblioteca está vacía.</p>';
+                 if (container === libraryView) container.innerHTML = '<p class="text-gray-500 text-center p-4">La Audioteca está vacía.</p>';
                 return;
             }
 
