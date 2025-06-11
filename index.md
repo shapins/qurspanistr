@@ -395,7 +395,7 @@
             { id: 's1', title: 'Sura 1: Al-Fâtihah (La Sura que abre el Libro)', artist: 'Mishary Al-Afasy y Noé Corrales', url: 'https://archive.org/download/coran_001/001.%20LA%20SURA%20QUE%20ABRE%20EL%20LIBRO.mp3'},
             { id: 's2', title: 'Sura 2: Al-Baqarah (Sura de la Vaca)', artist: 'Mishary Al-Afasy y Noé Corrales', url: 'https://archive.org/download/coran_001/002.%20SURA%20DE%20LA%20VACA.mp3'},
             { id: 's3', title: 'Sura 3: Al-Imrân (La Familia de Imrân)', artist: 'Mishary Al-Afasy y Noé Corrales', url: 'https://archive.org/download/coran_001/003.%20SURA%20DE%20LA%20FAMILIA%20DE%20IMRAN.mp3'},
-            { id: 's4', title: 'Sura 4: An-Nisâ' (Las Mujeres)', artist: 'Mishary Al-Afasy y Noé Corrales', url: 'https://archive.org/download/coran_001/004.%20SURA%20DE%20LAS%20MUJERES.mp3'},
+            { id: 's4', title: 'Sura 4: An-Nisâ (Las Mujeres)', artist: 'Mishary Al-Afasy y Noé Corrales', url: 'https://archive.org/download/coran_001/004.%20SURA%20DE%20LAS%20MUJERES.mp3'},
 
            
 
