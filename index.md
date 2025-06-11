@@ -398,8 +398,8 @@
             { id: 's4', title: 'Sura 4: An-Nisâ (Las Mujeres)', artist: 'Mishary Al-Afasy y Noé Corrales', url: 'https://archive.org/download/coran_001/004.%20SURA%20DE%20LAS%20MUJERES.mp3'},
             { id: 's5', title: 'Sura 5: Al-Mâidah (La Mesa Servida)', artist: 'Mishary Al-Afasy y Noé Corrales', url: 'https://archive.org/download/coran_001/005.%20SURA%20DE%20LA%20MESA%20SERVIDA.mp3'},
             { id: 's6', title: 'Sura 6: Al-Anâm (Los Rebaños)', artist: 'Mishary Al-Afasy y Noé Corrales', url: 'https://archive.org/download/coran_001/006.%20SURA%20DE%20LOS%20REBA%C3%91OS.mp3'},
-            { id: 's7', title: 'Sura 7: Al-Arâf (Los Lugares Elevados)', artist: 'Mishary Al-Afasy y Noé Corrales', url: 'https://archive.org/download/coran_001/007.%20SURA%20AL-%27ARAF.mp3'},
-            { id: 's8', title: 'Sura 8: Al-Anfâl (El Botín)', artist: 'Mishary Al-Afasy y Noé Corrales', url: 'https://archive.org/download/coran_001/008.%20SURA%20DE%20LOS%20BOTINES%20DE%20GUERRA.mp3'},
+            { id: 's7', title: 'Sura 7: Al-Arâf (La Altura Divisoria)', artist: 'Mishary Al-Afasy y Noé Corrales', url: 'https://archive.org/download/coran_001/007.%20SURA%20AL-%27ARAF.mp3'},
+            { id: 's8', title: 'Sura 8: Al-Anfâl (Los Botines de Guerra)', artist: 'Mishary Al-Afasy y Noé Corrales', url: 'https://archive.org/download/coran_001/008.%20SURA%20DE%20LOS%20BOTINES%20DE%20GUERRA.mp3'},
             { id: 's9', title: 'Sura 9: At-Tawbah (El Arrepentimiento o Retractación)', artist: 'Mishary Al-Afasy y Noé Corrales', url: 'https://archive.org/download/coran_001/009.%20SURA%20DE%20LA%20RETRACTACION.mp3'},
             { id: 's10', title: 'Sura 10: Yûnus (Jonás)', artist: 'Mishary Al-Afasy y Noé Corrales', url: 'https://archive.org/download/coran_001/010.%20SURA%20DE%20JONAS.mp3'},
 
