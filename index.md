@@ -7,12 +7,13 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        /* MODIFICATION: Removed height and overflow properties from body. */
         body {
             font-family: 'Inter', sans-serif;
             overscroll-behavior-y: contain; /* Prevents pull-to-refresh in WebView */
             margin: 0; /* Ensures no default body margin */
             background-color: #111827; /* bg-gray-900 */
+            /* MODIFICATION: Added overflow:hidden to prevent the body's scrollbar from appearing */
+            overflow: hidden; 
         }
         /* Custom scrollbar for webkit browsers */
         .custom-scrollbar::-webkit-scrollbar {
@@ -135,7 +136,7 @@
     <audio id="audioPlayer"></audio>
     
     <!-- 
-      MODIFICATION: Main Application Wrapper.
+      Main Application Wrapper.
       This div now controls the overall layout (flex, height, background) 
       instead of the <body> tag, making the component self-contained and robust.
     -->
@@ -1260,4 +1261,4 @@
         });
     </script>
 </body>
-</html>
+</ht
