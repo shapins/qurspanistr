@@ -1,4 +1,3 @@
-
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -6,10 +5,14 @@
     <title>Reproductor de Audio</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         body {
             font-family: 'Inter', sans-serif;
             overscroll-behavior-y: contain; /* Prevents pull-to-refresh in WebView */
+            /* MODIFICATION: Added height and overflow-hidden to prevent body scroll */
+            height: 100vh;
+            overflow: hidden;
         }
         /* Custom scrollbar for webkit browsers */
         .custom-scrollbar::-webkit-scrollbar {
@@ -126,106 +129,124 @@
         }
     </style>
 </head>
+<!-- MODIFICATION: body is now the main flex container for the two key sections -->
 <body class="bg-gray-900 text-white flex flex-col h-screen">
 
     <!-- Audio Element -->
     <audio id="audioPlayer"></audio>
-
-    <!-- Top Bar: Current Song Info -->
-    <div class="p-4 bg-gray-800 shadow-md relative">
-        <div id="currentSongDisplay" class="text-center flex items-center justify-center">
-             <div id="header-now-playing" class="now-playing-indicator hidden mr-2">
-               <span></span><span></span><span></span><span></span>
+    
+    <!-- 
+      MODIFICATION: Player Section Wrapper.
+      This div group all player controls and info.
+      'flex-shrink-0' prevents this section from shrinking.
+    -->
+    <div id="player-section" class="flex-shrink-0">
+        <!-- Top Bar: Current Song Info -->
+        <div class="p-4 bg-gray-800 shadow-md relative">
+            <div id="currentSongDisplay" class="text-center flex items-center justify-center">
+                 <div id="header-now-playing" class="now-playing-indicator hidden mr-2">
+                   <span></span><span></span><span></span><span></span>
+                </div>
+                <div>
+                    <p id="songTitle" class="text-lg font-semibold truncate">Ninguna Canción Seleccionada</p>
+                    <p id="songArtist" class="text-sm text-gray-400 truncate">---</p>
+                </div>
             </div>
-            <div>
-                <p id="songTitle" class="text-lg font-semibold truncate">Ninguna Canción Seleccionada</p>
-                <p id="songArtist" class="text-sm text-gray-400 truncate">---</p>
+        </div>
+
+        <!-- Progress Bar and Time -->
+        <div class="p-4 bg-gray-800">
+            <input type="range" id="progressBar" value="0" class="w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer accent-[#84cc16]">
+            <div class="flex justify-between text-xs text-gray-400 mt-1">
+                <span id="currentTime">0:00</span>
+                <span id="duration">0:00</span>
+            </div>
+        </div>
+
+        <!-- Player Controls -->
+        <div class="p-4 bg-gray-800 flex items-center justify-around">
+            <button id="shuffleBtn" class="player-button text-gray-400 hover:text-[#84cc16]"><i class="fas fa-random fa-lg"></i></button>
+            <button id="prevBtn" class="player-button text-gray-300 hover:text-white"><i class="fas fa-step-backward fa-xl"></i></button>
+            <button id="playPauseBtn" class="player-button text-[#84cc16] hover:text-[#65a30d] bg-gray-700 rounded-full w-16 h-16 flex items-center justify-center">
+                <i class="fas fa-play fa-2x"></i>
+            </button>
+            <button id="nextBtn" class="player-button text-gray-300 hover:text-white"><i class="fas fa-step-forward fa-xl"></i></button>
+            <button id="loopBtn" class="player-button text-gray-400 hover:text-[#84cc16]"><i class="fas fa-retweet fa-lg"></i></button>
+        </div>
+
+        <!-- Volume and Sleep Timer -->
+        <div class="px-4 md:px-6 pt-2 pb-4 bg-gray-800 flex items-center justify-center relative">
+            <!-- Centered Volume Controls -->
+            <div class="flex items-center justify-center space-x-2 w-full">
+                <i class="fas fa-volume-down text-gray-400"></i>
+                <input type="range" id="volumeCtrl" min="0" max="1" step="0.01" value="0.5" class="w-1/2 md:w-1/3 h-1 bg-gray-700 rounded-lg appearance-none cursor-pointer accent-[#84cc16]">
+                <i class="fas fa-volume-up text-gray-400"></i>
+            </div>
+            <!-- Sleep Timer Button absolutely positioned on the right -->
+            <div class="absolute right-4 md:right-6">
+                 <button id="sleepTimerBtn" class="player-button text-gray-400 hover:text-[#84cc16]"><i class="fas fa-clock fa-lg"></i></button>
             </div>
         </div>
     </div>
 
-    <!-- Progress Bar and Time -->
-    <div class="p-4 bg-gray-800">
-        <input type="range" id="progressBar" value="0" class="w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer accent-[#84cc16]">
-        <div class="flex justify-between text-xs text-gray-400 mt-1">
-            <span id="currentTime">0:00</span>
-            <span id="duration">0:00</span>
+    <!-- 
+      MODIFICATION: Library Section Wrapper.
+      - 'flex-grow' makes this section take all available vertical space.
+      - 'overflow-y-auto' makes ONLY this section scrollable if its content is too tall.
+    -->
+    <div id="library-section" class="flex flex-col flex-grow overflow-y-auto custom-scrollbar">
+        <!-- Tabs for Song Lists (Sticky within this scrollable container) -->
+        <div class="flex border-b border-gray-700 sticky top-0 bg-gray-900 z-10 flex-shrink-0">
+            <button data-tab="library" class="tab-button flex-1 py-3 text-center text-gray-400 hover:text-white tab-active">Suras</button>
+            <button data-tab="favorites" class="tab-button flex-1 py-3 text-center text-gray-400 hover:text-white">Favoritos</button>
+            <button data-tab="playlists" class="tab-button flex-1 py-3 text-center text-gray-400 hover:text-white">Listas</button>
         </div>
-    </div>
 
-    <!-- Player Controls -->
-    <div class="p-4 bg-gray-800 flex items-center justify-around">
-        <button id="shuffleBtn" class="player-button text-gray-400 hover:text-[#84cc16]"><i class="fas fa-random fa-lg"></i></button>
-        <button id="prevBtn" class="player-button text-gray-300 hover:text-white"><i class="fas fa-step-backward fa-xl"></i></button>
-        <button id="playPauseBtn" class="player-button text-[#84cc16] hover:text-[#65a30d] bg-gray-700 rounded-full w-16 h-16 flex items-center justify-center">
-            <i class="fas fa-play fa-2x"></i>
-        </button>
-        <button id="nextBtn" class="player-button text-gray-300 hover:text-white"><i class="fas fa-step-forward fa-xl"></i></button>
-        <button id="loopBtn" class="player-button text-gray-400 hover:text-[#84cc16]"><i class="fas fa-retweet fa-lg"></i></button>
-    </div>
-
-    <!-- Volume and Sleep Timer -->
-    <div class="px-4 md:px-6 pt-2 pb-4 bg-gray-800 flex items-center justify-center relative">
-        <!-- Centered Volume Controls -->
-        <div class="flex items-center justify-center space-x-2 w-full">
-            <i class="fas fa-volume-down text-gray-400"></i>
-            <input type="range" id="volumeCtrl" min="0" max="1" step="0.01" value="0.5" class="w-1/2 md:w-1/3 h-1 bg-gray-700 rounded-lg appearance-none cursor-pointer accent-[#84cc16]">
-            <i class="fas fa-volume-up text-gray-400"></i>
-        </div>
-        <!-- Sleep Timer Button absolutely positioned on the right -->
-        <div class="absolute right-4 md:right-6">
-             <button id="sleepTimerBtn" class="player-button text-gray-400 hover:text-[#84cc16]"><i class="fas fa-clock fa-lg"></i></button>
-        </div>
-    </div>
-
-
-    <!-- Tabs for Song Lists -->
-    <div class="flex border-b border-gray-700 sticky top-0 bg-gray-900 z-10">
-        <button data-tab="library" class="tab-button flex-1 py-3 text-center text-gray-400 hover:text-white tab-active">Suras</button>
-        <button data-tab="favorites" class="tab-button flex-1 py-3 text-center text-gray-400 hover:text-white">Favoritos</button>
-        <button data-tab="playlists" class="tab-button flex-1 py-3 text-center text-gray-400 hover:text-white">Listas</button>
-    </div>
-
-    <!-- Song List Area -->
-    <div id="songListContainer" class="flex-grow overflow-y-auto custom-scrollbar p-2">
-        <!-- Library View -->
-        <div id="libraryView" class="tab-content">
-            <!-- Songs will be injected here -->
-        </div>
-        <!-- Favorites View -->
-        <div id="favoritesView" class="tab-content hidden">
-            <p class="text-gray-500 text-center p-4 hidden" id="noFavoritesMessage">Aún no hay Suras en favoritos.</p>
-            <div id="favoriteSongsContainer">
-                <!-- Favorite songs will be injected here -->
+        <!-- 
+          Song List Area
+          MODIFICATION: Removed 'flex-grow' and 'overflow-y-auto' as the parent now handles this.
+        -->
+        <div id="songListContainer" class="p-2">
+            <!-- Library View -->
+            <div id="libraryView" class="tab-content">
+                <!-- Songs will be injected here -->
+            </div>
+            <!-- Favorites View -->
+            <div id="favoritesView" class="tab-content hidden">
+                <p class="text-gray-500 text-center p-4 hidden" id="noFavoritesMessage">Aún no hay Suras en favoritos.</p>
+                <div id="favoriteSongsContainer">
+                    <!-- Favorite songs will be injected here -->
+                </div>
+            </div>
+            <!-- Playlists View -->
+            <div id="playlistsView" class="tab-content hidden">
+                <div class="p-2">
+                    <button id="createPlaylistBtn" class="w-full bg-[#84cc16] hover:bg-[#65a30d] text-white font-semibold py-2 px-4 rounded-lg mb-2">
+                        <i class="fas fa-plus-circle mr-2"></i>Crear Nueva Lista
+                    </button>
+                     <div id="myPlaylistsContainer">
+                        <!-- Playlists will be listed here -->
+                     </div>
+                     <p class="text-gray-500 text-center p-4 hidden" id="noPlaylistsMessage">No hay listas de reproducción. ¡Crea una primero!</p>
+                </div>
+            </div>
+            <!-- Single Playlist Songs View -->
+            <div id="singlePlaylistSongsView" class="tab-content hidden">
+                 <div class="flex items-center justify-between p-2 border-b border-gray-700">
+                    <button id="backToPlaylistsBtn" class="text-[#84cc16] hover:text-[#65a30d]">
+                        <i class="fas fa-arrow-left mr-2"></i> Volver a Listas
+                    </button>
+                    <h3 id="currentPlaylistNameHeader" class="text-lg font-semibold">Suras de la Lista</h3>
+                </div>
+                <div id="songsInPlaylistContainer">
+                    <!-- Songs in the selected playlist will be injected here -->
+                </div>
+                 <p class="text-gray-500 text-center p-4 hidden" id="noSongsInPlaylistMessage">Esta lista de reproducción está vacía.</p>
             </div>
         </div>
-        <!-- Playlists View -->
-        <div id="playlistsView" class="tab-content hidden">
-            <div class="p-2">
-                <button id="createPlaylistBtn" class="w-full bg-[#84cc16] hover:bg-[#65a30d] text-white font-semibold py-2 px-4 rounded-lg mb-2">
-                    <i class="fas fa-plus-circle mr-2"></i>Crear Nueva Lista
-                </button>
-                 <div id="myPlaylistsContainer">
-                    <!-- Playlists will be listed here -->
-                 </div>
-                 <p class="text-gray-500 text-center p-4 hidden" id="noPlaylistsMessage">No hay listas de reproducción. ¡Crea una primero!</p>
-            </div>
-        </div>
-        <!-- Single Playlist Songs View -->
-        <div id="singlePlaylistSongsView" class="tab-content hidden">
-             <div class="flex items-center justify-between p-2 border-b border-gray-700">
-                <button id="backToPlaylistsBtn" class="text-[#84cc16] hover:text-[#65a30d]">
-                    <i class="fas fa-arrow-left mr-2"></i> Volver a Listas
-                </button>
-                <h3 id="currentPlaylistNameHeader" class="text-lg font-semibold">Suras de la Lista</h3>
-            </div>
-            <div id="songsInPlaylistContainer">
-                <!-- Songs in the selected playlist will be injected here -->
-            </div>
-             <p class="text-gray-500 text-center p-4 hidden" id="noSongsInPlaylistMessage">Esta lista de reproducción está vacía.</p>
-        </div>
     </div>
-
+    
+    <!-- All modals remain at the end of the body, outside the main layout flow -->
     <!-- Sleep Timer Modal -->
     <div id="sleepTimerModal" class="modal fixed inset-0 bg-black bg-opacity-75 items-center justify-center z-50 p-4">
         <div class="bg-gray-800 p-6 rounded-lg shadow-xl w-full max-w-sm">
@@ -309,7 +330,6 @@
 
         // --- Firebase Configuration ---
         const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : {
-
             apiKey: "AIzaSyDG7RFQi54jI0HfTH69rZZofVBAUO81ScY",
             authDomain: "quranspanishstream.firebaseapp.com",
             projectId: "quranspanishstream",
@@ -317,8 +337,6 @@
             messagingSenderId: "228678837949",
             appId: "1:228678837949:web:6205f74be18abc507eb9d4",
             measurementId: "G-2EYQKPKGB3"
-
-
         };
         const appId = typeof __app_id !== 'undefined' ? __app_id : 'audio-player-default-app';
 
@@ -392,7 +410,6 @@
 
 
         let songs = [
-          
             { id: 's1', title: 'Sura 1: Al-Fatihah (La Sura que abre el Libro)', artist: 'Mishary Al-Afasy y Noé Corrales', url: 'https://archive.org/download/coran_001/001.%20LA%20SURA%20QUE%20ABRE%20EL%20LIBRO.mp3'},
             { id: 's2', title: 'Sura 2: Al-Baqarah (Sura de la Vaca)', artist: 'Mishary Al-Afasy y Noé Corrales', url: 'https://archive.org/download/coran_001/002.%20SURA%20DE%20LA%20VACA.mp3'},
             { id: 's3', title: 'Sura 3: Al-Imran (La Familia de Imran)', artist: 'Mishary Al-Afasy y Noé Corrales', url: 'https://archive.org/download/coran_001/003.%20SURA%20DE%20LA%20FAMILIA%20DE%20IMRAN.mp3'},
@@ -403,7 +420,7 @@
             { id: 's8', title: 'Sura 8: Al-Anfal (Los Botines de Guerra)', artist: 'Mishary Al-Afasy y Noé Corrales', url: 'https://archive.org/download/coran_001/008.%20SURA%20DE%20LOS%20BOTINES%20DE%20GUERRA.mp3'},
             { id: 's9', title: 'Sura 9: At-Tawbah (El Arrepentimiento o Retractación)', artist: 'Mishary Al-Afasy y Noé Corrales', url: 'https://archive.org/download/coran_001/009.%20SURA%20DE%20LA%20RETRACTACION.mp3'},
             { id: 's10', title: 'Sura 10: Yûnus (Jonás)', artist: 'Mishary Al-Afasy y Noé Corrales', url: 'https://archive.org/download/coran_001/010.%20SURA%20DE%20JONAS.mp3'},
- { id: 's11', title: 'Sura 11: Hûd (Jud)', artist: 'Mishary Al-Afasy y Noé Corrales', url: 'https://archive.org/download/coran_001/011.%20SURA%20DE%20JUD.mp3'},
+            { id: 's11', title: 'Sura 11: Hûd (Jud)', artist: 'Mishary Al-Afasy y Noé Corrales', url: 'https://archive.org/download/coran_001/011.%20SURA%20DE%20JUD.mp3'},
             { id: 's12', title: 'Sura 12: Yûsuf (José)', artist: 'Mishary Al-Afasy y Noé Corrales', url: 'https://archive.org/download/coran_001/012.%20SURA%20DE%20JOSE.mp3'},
             { id: 's13', title: 'Sura 13: Ar-Rad (El Trueno)', artist: 'Mishary Al-Afasy y Noé Corrales', url: 'https://archive.org/download/coran_001/013.%20SURA%20DEL%20TRUENO.mp3'},
             { id: 's14', title: 'Sura 14: Ibrahim (Abraham)', artist: 'Mishary Al-Afasy y Noé Corrales', url: 'https://archive.org/download/coran_001/014.%20SURA%20DE%20ABRAHAM.mp3'},
@@ -770,6 +787,7 @@
         });
 
         function formatTime(seconds) {
+            if (isNaN(seconds)) return '0:00';
             const minutes = Math.floor(seconds / 60);
             const secs = Math.floor(seconds % 60);
             return minutes + ':' + (secs < 10 ? '0' : '') + secs;
@@ -1327,5 +1345,3 @@
     </script>
 </body>
 </html>
-
-
