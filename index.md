@@ -1,3 +1,6 @@
+/* library scrolling added  */
+
+
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -215,7 +218,7 @@
                 </div>
                 <!-- Favorites View -->
                 <div id="favoritesView" class="tab-content hidden">
-                    <p class="text-gray-500 text-center p-4 hidden" id="noFavoritesMessage">Aún no hay Suras en favoritos.</p>
+                    <p class="text-gray-500 text-center p-4 hidden" id="noFavoritesMessage">Aún no hay Suras en Tus Favoritos.</p>
                     <div id="favoriteSongsContainer">
                         <!-- Favorite songs will be injected here -->
                     </div>
@@ -271,8 +274,8 @@
     <!-- Modal for Creating Playlist -->
     <div id="createPlaylistModal" class="modal fixed inset-0 bg-black bg-opacity-75 items-center justify-center z-50 p-4">
         <div class="bg-gray-800 p-6 rounded-lg shadow-xl w-full max-w-md">
-            <h3 class="text-xl font-semibold mb-4">Crear Nueva Lista</h3>
-            <input type="text" id="newPlaylistName" placeholder="Nombre de la Lista" class="w-full p-2 rounded bg-gray-700 border border-gray-600 focus:border-[#84cc16] outline-none mb-4">
+            <h3 class="text-xl font-semibold mb-4 text-white">Crear Nueva Lista</h3>
+            <input type="text" id="newPlaylistName" placeholder="Nombre de la Lista" class="w-full p-2 rounded bg-gray-700 border border-gray-600 focus:border-[#84cc16] outline-none mb-4 text-white">
             <div class="flex justify-end space-x-2">
                 <button id="cancelCreatePlaylistBtn" class="bg-gray-600 hover:bg-gray-700 text-white font-semibold py-2 px-4 rounded-lg">Cancelar</button>
                 <button id="savePlaylistBtn" class="bg-[#84cc16] hover:bg-[#65a30d] text-white font-semibold py-2 px-4 rounded-lg">Crear</button>
@@ -579,13 +582,13 @@
             }
             
             if (activeTab === 'favorites') {
-                songTitleDisplay.textContent = "No hay Suras en Favoritos";
+                songTitleDisplay.textContent = "No hay Suras en Tus Favoritos aún.";
             } else if (activeTab === 'playlists' && !currentOpenPlaylistId) {
-                songTitleDisplay.textContent = "No hay Suras en la Lista";
+                songTitleDisplay.textContent = "Listas de Reproducción";
             } else if (activeTab === 'playlists' && currentOpenPlaylistId) {
-                songTitleDisplay.textContent = "Esta Lista está vacía";
+                songTitleDisplay.textContent = "Esta Lista de Reproducción está vacía";
             } else {
-                songTitleDisplay.textContent = "No hay Ninuna Sura Seleccionada";
+                songTitleDisplay.textContent = "No hay ninguna Sura seleccionada";
             }
             songArtistDisplay.textContent = "---";
         }
