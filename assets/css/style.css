@@ -9,5 +9,9 @@ body {
 h1 {
   color: #;
 }
-
+.player-container {
+  /* height: 100vh;  Make it fill the screen */
+  /* Or a fixed height */
+  height: 800px; 
+}
 /* Add any other styles you want */
