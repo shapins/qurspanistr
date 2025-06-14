@@ -244,7 +244,7 @@
                     <div id="songsInPlaylistContainer">
                         <!-- Songs in the selected playlist will be injected here -->
                     </div>
-                     <p class="text-gray-500 text-center p-4 hidden" id="noSongsInPlaylistMessage">Tus Listas de Reproducción</p>
+                     <p class="text-gray-500 text-center p-4 hidden" id="noSongsInPlaylistMessage">Tu lista de reproducción está vacía.</p>
                 </div>
             </div>
         </div>
