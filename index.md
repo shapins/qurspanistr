@@ -284,7 +284,7 @@
     <!-- Modal for Adding to Playlist -->
     <div id="addToPlaylistModal" class="modal fixed inset-0 bg-black bg-opacity-75 items-center justify-center z-50 p-4">
         <div class="bg-gray-800 p-6 rounded-lg shadow-xl w-full max-w-md">
-            <h3 class="text-xl font-semibold mb-4">Añadir a Lista</h3>
+            <h3 class="text-xl font-semibold mb-4 text-white">Añadir a Lista</h3>
             <input type="hidden" id="songIdToAddToPlaylist">
             <div id="playlistSelectionContainer" class="max-h-60 overflow-y-auto custom-scrollbar mb-4 border border-gray-700 rounded-md p-2">
                 <!-- Available playlists for selection -->
@@ -586,7 +586,7 @@
             } else if (activeTab === 'playlists' && currentOpenPlaylistId) {
                 songTitleDisplay.textContent = "Tus Listas de Reproducción";
             } else {
-                songTitleDisplay.textContent = "No hay ninguna Sura seleccionada";
+                songTitleDisplay.textContent = "Seleccione una Sura";
             }
             songArtistDisplay.textContent = "---";
         }
