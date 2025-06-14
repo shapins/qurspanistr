@@ -1,5 +1,4 @@
 
-
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -157,7 +156,7 @@
                     </div>
                     <div>
                         <p id="songTitle" class="text-lg font-semibold truncate">Seleccione una Sura</p>
-                        <p id="songArtist" class="text-sm text-gray-400 truncate">---</p>
+                        <p id="songArtist" class="text-sm text-gray-400 truncate">________________________________</p>
                     </div>
                 </div>
             </div>
@@ -589,7 +588,7 @@
             } else {
                 songTitleDisplay.textContent = "Seleccione una Sura";
             }
-            songArtistDisplay.textContent = "_________________________________________";
+            songArtistDisplay.textContent = "________________________________";
         }
         function updateNowPlayingIndicator() {
             document.querySelectorAll('.now-playing-indicator').forEach(function(indicator) {
