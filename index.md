@@ -1,4 +1,5 @@
 
+
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -203,7 +204,7 @@
         <div id="library-section" class="flex flex-col flex-grow overflow-y-auto custom-scrollbar">
             <!-- Tabs for Song Lists (Sticky within this scrollable container) -->
             <div class="flex border-b border-gray-700 sticky top-0 bg-gray-900 z-10 flex-shrink-0">
-                <button data-tab="library" class="tab-button flex-1 py-3 text-center text-gray-400 hover:text-white tab-active">Suras</button>
+                <button data-tab="library" class="tab-button flex-1 py-3 text-center text-gray-400 hover:text-white tab-active">Suras (Capítulos)</button>
                 <button data-tab="favorites" class="tab-button flex-1 py-3 text-center text-gray-400 hover:text-white">Favoritos</button>
                 <button data-tab="playlists" class="tab-button flex-1 py-3 text-center text-gray-400 hover:text-white">Listas</button>
             </div>
@@ -588,7 +589,7 @@
             } else {
                 songTitleDisplay.textContent = "Seleccione una Sura";
             }
-            songArtistDisplay.textContent = "---";
+            songArtistDisplay.textContent = "________________________________";
         }
         function updateNowPlayingIndicator() {
             document.querySelectorAll('.now-playing-indicator').forEach(function(indicator) {
