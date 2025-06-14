@@ -1,6 +1,4 @@
 
-
-
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -157,7 +155,7 @@
                        <span></span><span></span><span></span><span></span>
                     </div>
                     <div>
-                        <p id="songTitle" class="text-lg font-semibold truncate">Ninguna Canción Seleccionada</p>
+                        <p id="songTitle" class="text-lg font-semibold truncate">Seleccione una Sura</p>
                         <p id="songArtist" class="text-sm text-gray-400 truncate">---</p>
                     </div>
                 </div>
@@ -246,7 +244,7 @@
                     <div id="songsInPlaylistContainer">
                         <!-- Songs in the selected playlist will be injected here -->
                     </div>
-                     <p class="text-gray-500 text-center p-4 hidden" id="noSongsInPlaylistMessage">Esta lista de reproducción está vacía.</p>
+                     <p class="text-gray-500 text-center p-4 hidden" id="noSongsInPlaylistMessage">Tus Listas de Reproducción</p>
                 </div>
             </div>
         </div>
@@ -256,12 +254,12 @@
     <!-- Sleep Timer Modal -->
     <div id="sleepTimerModal" class="modal fixed inset-0 bg-black bg-opacity-75 items-center justify-center z-50 p-4">
         <div class="bg-gray-800 p-6 rounded-lg shadow-xl w-full max-w-sm">
-            <h3 id="sleepTimerTitle" class="text-xl font-semibold mb-4 text-center">Temporizador</h3>
+            <h3 id="sleepTimerTitle" class="text-xl text-white font-semibold mb-4 text-center">Temporizador</h3>
             <div id="timerOptions" class="grid grid-cols-2 gap-3">
-                <button data-minutes="15" class="bg-gray-700 hover:bg-[#84cc16] hover:text-gray-900 font-semibold py-3 px-4 rounded-lg">15 Minutos</button>
-                <button data-minutes="30" class="bg-gray-700 hover:bg-[#84cc16] hover:text-gray-900 font-semibold py-3 px-4 rounded-lg">30 Minutos</button>
-                <button data-minutes="60" class="bg-gray-700 hover:bg-[#84cc16] hover:text-gray-900 font-semibold py-3 px-4 rounded-lg">60 Minutos</button>
-                <button data-minutes="120" class="bg-gray-700 hover:bg-[#84cc16] hover:text-gray-900 font-semibold py-3 px-4 rounded-lg">120 Minutos</button>
+                <button data-minutes="15" class="bg-gray-700 hover:bg-[#84cc16] hover:text-gray-900 text-white font-semibold py-3 px-4 rounded-lg">15 Minutos</button>
+                <button data-minutes="30" class="bg-gray-700 hover:bg-[#84cc16] hover:text-gray-900 text-white font-semibold py-3 px-4 rounded-lg">30 Minutos</button>
+                <button data-minutes="60" class="bg-gray-700 hover:bg-[#84cc16] hover:text-gray-900 text-white font-semibold py-3 px-4 rounded-lg">60 Minutos</button>
+                <button data-minutes="120" class="bg-gray-700 hover:bg-[#84cc16] hover:text-gray-900 text-white font-semibold py-3 px-4 rounded-lg">120 Minutos</button>
                 <button data-minutes="0" class="col-span-2 bg-gray-700 hover:bg-pink-500 font-semibold py-3 px-4 rounded-lg">Desactivar</button>
             </div>
             <div class="flex justify-center mt-4">
@@ -582,11 +580,11 @@
             }
             
             if (activeTab === 'favorites') {
-                songTitleDisplay.textContent = "No hay Suras en Tus Favoritos aún.";
+                songTitleDisplay.textContent = "Tus Favoritos";
             } else if (activeTab === 'playlists' && !currentOpenPlaylistId) {
-                songTitleDisplay.textContent = "Listas de Reproducción";
+                songTitleDisplay.textContent = "Tus Listas de Reproducción";
             } else if (activeTab === 'playlists' && currentOpenPlaylistId) {
-                songTitleDisplay.textContent = "Esta Lista de Reproducción está vacía";
+                songTitleDisplay.textContent = "Tus Listas de Reproducción";
             } else {
                 songTitleDisplay.textContent = "No hay ninguna Sura seleccionada";
             }
@@ -1165,7 +1163,7 @@
                     const pDiv = document.createElement('div');
                     pDiv.className = 'p-2 border-b border-gray-700 flex justify-between items-center last:border-b-0';
                     pDiv.innerHTML = `
-                        <span class="truncate">${playlist.name}</span>
+                        <span class="truncate text-white">${playlist.name}</span>
                         <button data-playlist-id="${playlist.id}" ${isSongInPlaylist ? 'disabled class="text-gray-500 cursor-not-allowed p-1 rounded"' : 'class="text-[#84cc16] hover:text-[#65a30d] p-1 rounded"'}">
                             ${isSongInPlaylist ? '<i class="fas fa-check-circle mr-1"></i> Añadido' : '<i class="fas fa-plus-circle mr-1"></i> Añadir'}
                         </button>
