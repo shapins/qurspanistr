@@ -335,13 +335,14 @@
         // --- All JavaScript code remains the same ---
         // ... (The entire script content from the uploaded file) ...
         const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : {
-            apiKey: "AIzaSyDG7RFQi54jI0HfTH69rZZofVBAUO81ScY",
-            authDomain: "quranspanishstream.firebaseapp.com",
-            projectId: "quranspanishstream",
-            storageBucket: "quranspanishstream.firebasestorage.app",
-            messagingSenderId: "228678837949",
-            appId: "1:228678837949:web:6205f74be18abc507eb9d4",
-            measurementId: "G-2EYQKPKGB3"
+            apiKey: "AIzaSyCKQhaLiswg-bGGKgnO5ScH2-xLzspToHA",
+  authDomain: "quranenglishstream.firebaseapp.com",
+  databaseURL: "https://quranenglishstream-default-rtdb.firebaseio.com",
+  projectId: "quranenglishstream",
+  storageBucket: "quranenglishstream.firebasestorage.app",
+  messagingSenderId: "300392129839",
+  appId: "1:300392129839:web:30b05802abeb2748f8edda",
+  measurementId: "G-JX6YBY2DVM"
         };
         const appId = typeof __app_id !== 'undefined' ? __app_id : 'audio-player-default-app';
         const app = initializeApp(firebaseConfig);
